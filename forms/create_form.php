@@ -15,48 +15,57 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    block
- * @subpackage database
+ * @package    local
+ * @subpackage diario_mural
  * @copyright  2019 UAI
  * @author  2019 Loreto López Pino <loreto.lopezpino@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-defined('MOODLE_INTERNAL') || die();
-require_once (dirname(dirname(dirname(dirname(__FILE__))))."/config.php");
-require_once ($CFG->libdir."/formslib.php");
+$string = 'hola';
 
-class create_form extends moodleform{
 
+//echo $string;
+
+
+require(__DIR__ . '/../../../config.php');
+//require_once $CFG->libdir.'/filelib.php';
+
+//necesario para desplegar el formulario
+require_once ($CFG->libdir . '/formslib.php');
+
+class create_form extends moodleform {
     //Add elements to form
-    public function definition()
-    {
-        global $CFG, $DB;
+    public function definition() {
+        global $CFG;
 
-        $mform = $this->_form;
+        $mform = $this->_form; // Don't forget the underscore!
 
-        // Query for retrieving tipos records
-        $sql = 'SELECT id, nombre
-				FROM {tipo_aviso}';
-
-        $tipos = [];
-        foreach ($tipos as $tipo){
-        }
+        $mform->addElement('text', 'email', get_string('email')); // Add elements to your form
+        $mform->setType('email', PARAM_NOTAGS);                   //Set type of element
+        $mform->setDefault('email', 'Ingrese su email');        //Default value
 
         $mform->addElement('text', 'email', get_string('email')); // Add elements to your form
         $mform->setType('email', PARAM_NOTAGS);                   //Set type of element
         $mform->setDefault('email', 'Please enter email');        //Default value
 
 
+        //Adding button
+        //$mform->addElement('button', get_string('button1', 'local_diario_mural'));
+
+        //add radio button
+        $radioarray=array();
+        $radioarray[] = $mform->createElement('radio', 'yesno', '', get_string('yes'), 1, $attributes);
+        $radioarray[] = $mform->createElement('radio', 'yesno', '', get_string('no'), 0, $attributes);
+        $mform->addGroup($radioarray, 'radioar', '', array(' '), false);
+
+        //$mform->closeHeaderBefore('button1');
+
+
     }
-
     //Custom validation should be added here
-    function validation($data, $files)
-    {
-        global $DB;
-        $errors = [];
-
+    function validation($data, $files) {
         return array();
     }
 }
