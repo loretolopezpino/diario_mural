@@ -1,0 +1,28 @@
+<XMLDB PATH="blocks/database/db" VERSION="20190613" COMMENT="XMLDB file for Moodle blocks/database" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+    <TABLES>
+        <TABLE NAME="tipo_aviso" COMMENT="Inicialización de Base de Datos del Plugin.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="nombre" TYPE="char" LENGTH="250" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="aviso" COMMENT="Tabla de publicación de avisos realizados por los estudiantes">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="title" TYPE="char" LENGTH="200" NOTNULL="false" SEQUENCE="false" COMMENT="Título del Aviso"/>
+                <FIELD NAME="description" TYPE="char" LENGTH="300" NOTNULL="false" SEQUENCE="false" COMMENT="Descripción del aviso"/>
+                <FIELD NAME="fecha_publicacion" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="id_tipo_aviso" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+                <FIELD NAME="id_user" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="fk_tipo_aviso" TYPE="foreign" FIELDS="id_tipo_aviso" REFTABLE="tipo_aviso" REFFIELDS="id"/>
+                <KEY NAME="fk_user" TYPE="foreign" FIELDS="id_user" REFTABLE="mdl_user" REFFIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>
