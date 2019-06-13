@@ -5,7 +5,7 @@ function xmldb_local_diario_mural_upgrade($oldversion)
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 20190612302) {
+   /* if ($oldversion < 20190612302) {
 
 
         // Define table tipo_aviso to be created.
@@ -47,7 +47,7 @@ function xmldb_local_diario_mural_upgrade($oldversion)
         // Database savepoint reached.
         upgrade_block_savepoint(true, 20190612302, 'database');
 
-    }
+    }*/
 
     return true;
 }
