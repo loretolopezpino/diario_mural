@@ -1,14 +1,14 @@
 <?php
+require(__DIR__ . '/../../config.php');
 
 function xmldb_local_diario_mural_upgrade($oldversion)
 {
     global $DB;
     $dbman = $DB->get_manager();
 
-   /* if ($oldversion < 20190612302) {
+    if ($oldversion < 20190612301) {
 
-
-        // Define table tipo_aviso to be created.
+        //Define table tipo_aviso to be created.
         $table = new xmldb_table('tipo_aviso');
 
         // Adding fields to table tipo_aviso.
@@ -44,10 +44,29 @@ function xmldb_local_diario_mural_upgrade($oldversion)
             $dbman->create_table($table);
         }
 
+
+        // Conditionally launch create table for aviso.
+        if ($dbman->table_exists($table)) {
+            $tipo_aviso1 = new stdClass();
+            $tipo_aviso1->nombre = 'Enseñanza';
+
+            $tipo_aviso2 = new stdClass();
+            $tipo_aviso2->nombre = 'Venta';
+
+            $tipo_aviso3 = new stdClass();
+            $tipo_aviso3->nombre = 'Objetos perdidos';
+
+            // Insert one record at a time.
+            $insert1 = $DB->insert_record('tipo_aviso', $tipo_aviso1);
+            $insert2 = $DB->insert_record('tipo_aviso', $tipo_aviso2);
+            $insert3 = $DB->insert_record('tipo_aviso', $tipo_aviso3);
+        }
+
+
         // Database savepoint reached.
         upgrade_block_savepoint(true, 20190612302, 'database');
 
-    }*/
+    }
 
     return true;
 }

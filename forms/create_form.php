@@ -29,20 +29,37 @@ $string = 'hola';
 //echo $string;
 
 
-require(__DIR__ . '/../../../config.php');
-//require_once $CFG->libdir.'/filelib.php';
+// You can access the database via the $DB method calls here.
+require(__DIR__.'/../../../config.php');
 
-//necesario para desplegar el formulario
+//Necesario para desplegar el formulario
 require_once ($CFG->libdir . '/formslib.php');
 
 class create_form extends moodleform {
     //Add elements to form
     public function definition() {
-        global $CFG;
+        global $CFG, $DB;
 
         $mform = $this->_form; // Don't forget the underscore!
 
-        $mform->addElement('text', 'email', get_string('email')); // Add elements to your form
+        // Query for retrieving courses records
+        $sql = 'SELECT id, nombre
+				FROM {tipo_aviso}';
+
+        // Retrieves courses records
+
+        $tipos_aviso = $DB->get_record_sql($sql,null);
+
+        foreach ($tipos_aviso as $tipo_aviso){
+            var_dump($tipo_aviso);
+            exit;
+        }
+
+
+
+
+
+        /*$mform->addElement('text', 'email', get_string('email')); // Add elements to your form
         $mform->setType('email', PARAM_NOTAGS);                   //Set type of element
         $mform->setDefault('email', 'Ingrese su email');        //Default value
 
@@ -58,7 +75,7 @@ class create_form extends moodleform {
         $radioarray=array();
         $radioarray[] = $mform->createElement('radio', 'yesno', '', get_string('yes'), 1, $attributes);
         $radioarray[] = $mform->createElement('radio', 'yesno', '', get_string('no'), 0, $attributes);
-        $mform->addGroup($radioarray, 'radioar', '', array(' '), false);
+        $mform->addGroup($radioarray, 'radioar', '', array(' '), false);*/
 
         //$mform->closeHeaderBefore('button1');
 
