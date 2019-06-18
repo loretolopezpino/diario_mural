@@ -12,41 +12,55 @@
     $url = new moodle_url("local/diario_mural/create.php");
     $PAGE->set_url($url);
     $PAGE->set_context($context);
-    $PAGE->set_pagelayout("standar");
+    $PAGE->set_pagelayout("standard");
 
 
+    // Possible actions -> view, add, edit or delete. Standard is view mode
+    $action = optional_param("action", "add", PARAM_TEXT);
 
-
-
-
-
-    //Instantiate simplehtml_form
-    $mform = new create_form();
-
-    //Form processing and displaying is done here
-    if ($mform->is_cancelled()) {
-        //Handle form cancel operation, if cancel button is present on form
-
-        var_dump('1');
-        exit;
+    require_login();
+    if (isguestuser()){
+        die();
     }
-    else if ($fromform = $mform->get_data()) {
-        //In this case you process validated data. $mform->get_data() returns data posted in form.
-        var_dump('2');
-        exit;
-    }
-    else {
-        // this branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
-        // or on the first display of the form.
 
-        //var_dump('3');
-        //exit;
+    if($action == 'add'){
+        //Instantiate create_form
+        $addForm = new create_form();
 
-        //Set default data (if any)
-        $mform->set_data($toform);
-        //displays the form
-        $mform->display();
+        //Form processing and displaying is done here
+        if ($addForm->is_cancelled()) {
+            //Handle form cancel operation, if cancel button is present on form
+
+        }
+        else if ($data = $addForm->get_data()) {
+            //In this case you process validated data. $mform->get_data() returns data posted in form.
+            $register = new stdClass();
+            $register->titulo = $data->titulo;
+            $register->descripcion = $data->descripcion;
+            $register->fecha_creacion =  date('Y-m-d H:i');
+            $register->id_tipo_aviso = $data->id_tipo_aviso;
+            $register->id_user = $USER->id;
+
+            // Insert register
+            $lastinsert= $DB->insert_record('aviso', $register);
+
+
+            $action = "add";
+        }
+        else{
+            $addForm->display();
+
+
+        }
+
+
+
     }
+
+
+
+
+
 
 
 

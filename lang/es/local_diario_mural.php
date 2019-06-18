@@ -6,5 +6,7 @@
  */
 $string['pluginname'] = "Diario Mural";
 $string['diario_mural'] = 'HTML';
-
+$string['titulo'] = 'Título';
+$string['heading'] = 'Diario Mural UAI';
+$string['title'] = 'Diario Mural UAI';
 $string['button1'] = 'Enviar';

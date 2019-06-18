@@ -38,51 +38,69 @@ require_once ($CFG->libdir . '/formslib.php');
 class create_form extends moodleform {
     //Add elements to form
     public function definition() {
-        global $CFG, $DB;
+        global $CFG;
 
         $mform = $this->_form; // Don't forget the underscore!
 
-        // Query for retrieving courses records
-        $sql = 'SELECT id, nombre
-				FROM {tipo_aviso}';
 
-        // Retrieves courses records
-
-        $tipos_aviso = $DB->get_record_sql($sql,null);
+        $tipos_aviso = $this->getTiposAviso();
+        $dropDownAviso = [];
 
         foreach ($tipos_aviso as $tipo_aviso){
-            var_dump($tipo_aviso);
-            exit;
+            $dropDownAviso[$tipo_aviso->id] = $tipo_aviso->nombre;
         }
 
+        //Tipo Aviso Drop Down
+        $mform->addElement("select", "id_tipo_aviso", "Seleccione categoría del aviso", $dropDownAviso);
+        // Title input
+        $mform->addElement ("text", "titulo", 'Título');
+        $mform->setType ("titulo", PARAM_TEXT);
+
+        //Description input
+        $mform->addElement ("text", "descripcion", 'Descripción');
+        $mform->setType ("descripcion", PARAM_TEXT);
 
 
-
-
-        /*$mform->addElement('text', 'email', get_string('email')); // Add elements to your form
-        $mform->setType('email', PARAM_NOTAGS);                   //Set type of element
-        $mform->setDefault('email', 'Ingrese su email');        //Default value
-
-        $mform->addElement('text', 'email', get_string('email')); // Add elements to your form
-        $mform->setType('email', PARAM_NOTAGS);                   //Set type of element
-        $mform->setDefault('email', 'Please enter email');        //Default value
-
-
-        //Adding button
-        //$mform->addElement('button', get_string('button1', 'local_diario_mural'));
-
-        //add radio button
-        $radioarray=array();
-        $radioarray[] = $mform->createElement('radio', 'yesno', '', get_string('yes'), 1, $attributes);
-        $radioarray[] = $mform->createElement('radio', 'yesno', '', get_string('no'), 0, $attributes);
-        $mform->addGroup($radioarray, 'radioar', '', array(' '), false);*/
-
-        //$mform->closeHeaderBefore('button1');
-
+        // Set action to "add"
+        $mform->addElement ("hidden", "action", "add");
+        $mform->setType ("action", PARAM_TEXT);
+        $this->add_action_buttons(true);
 
     }
     //Custom validation should be added here
     function validation($data, $files) {
-        return array();
+
+        global $DB;
+        $errors = array();
+
+        $id_tipo_aviso = $data["id_tipo_aviso"];
+        $titulo = $data["titulo"];
+
+        if(!isset($id_tipo_aviso) && empty($id_tipo_aviso)){
+
+            $errors[$id_tipo_aviso] = "Campo requerido.";
+        }
+
+        if(!isset($titulo) && empty($titulo)){
+
+            $errors[$titulo] = "Campo requerido.";
+        }
+
+        return $errors;
     }
+
+    function getTiposAviso(){
+        global $DB;
+
+        // Query para onbtener los registro de la tabla Tipo de Aviso
+        $sql = 'SELECT id, nombre
+				FROM {tipo_aviso}';
+
+        // Retornando registros de la tabla Tipo Aviso
+        return  $DB->get_records_sql($sql,null);
+    }
+
+
+
 }
+
