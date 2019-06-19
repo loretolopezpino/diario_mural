@@ -22,13 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-$string = 'hola';
-
-
-//echo $string;
-
-
 // You can access the database via the $DB method calls here.
 require(__DIR__.'/../../../config.php');
 
@@ -51,14 +44,14 @@ class create_form extends moodleform {
         }
 
         //Tipo Aviso Drop Down
-        $mform->addElement("select", "id_tipo_aviso", "Seleccione categoría del aviso", $dropDownAviso);
+        $mform->addElement("select", "id_tipo_aviso", get_string('titulo', 'local_diario_mural'), $dropDownAviso);
         // Title input
-        $mform->addElement ("text", "titulo", 'Título');
+        $mform->addElement ("text", "titulo", get_string('titulo', 'local_diario_mural'));
         $mform->setType ("titulo", PARAM_TEXT);
 
         //Description input
-        $mform->addElement ("text", "descripcion", 'Descripción');
-        $mform->setType ("descripcion", PARAM_TEXT);
+        $mform->addElement ('textarea','descripcion', get_string('titulo', 'local_diario_mural'), 'wrap="virtual" rows="5" cols="50"');
+        $mform->setType ('descripcion', PARAM_RAW);
 
 
         // Set action to "add"
@@ -75,15 +68,20 @@ class create_form extends moodleform {
 
         $id_tipo_aviso = $data["id_tipo_aviso"];
         $titulo = $data["titulo"];
+        $descripcion = $data["descripcion"];
 
         if(!isset($id_tipo_aviso) && empty($id_tipo_aviso)){
 
             $errors[$id_tipo_aviso] = "Campo requerido.";
         }
 
-        if(!isset($titulo) && empty($titulo)){
-
+        //!isset($titulo) || empty($titulo) ||
+        if( strlen($titulo)== 0){
             $errors[$titulo] = "Campo requerido.";
+        }
+
+        if( strlen($descripcion)== 0){
+            $errors[$descripcion] = "Campo requerido.";
         }
 
         return $errors;
