@@ -50,69 +50,55 @@
         }
     }
 
+    //Lista de todos los registros de aviso
     if($action == 'view'){
 
+        retornaVistaMisavisos($OUTPUT);
 
-       //var_dump('Primer view');
-
-        $avisos = getAvisosUsuario($USER->id);
-        $tableMisAvisos = new html_table();
+        /*$avisos = getAllAvisos();
+        $avisos_table = new html_table();
 
         if(sizeof($avisos) > 0){
-            $tableMisAvisos->head = array(
-               'Avisos',
-               'Mis Avisos',
-            );
 
-           // var_dump($tableMisAvisos);
-            foreach ($avisos as $aviso){
-                // Define delete icon and url
+            $avisos_table->head = [
+                'Título',
+                'Categoría'
+            ];
 
-                $deleteUrl = new moodle_url($url_create, array(
-                    "action" => "delete",
-                    "id" => $aviso->id,
-                ));
+            foreach($avisos as $aviso){
+                $avisos_table->data[] = array(
+                    $aviso->titulo,
+                    $aviso->categoria
+                );
             }
-       }
+        }
 
-        $createButton = new moodle_url($url_create, ['action' => 'add']);
+        $url_button = new moodle_url("/local/diario_mural/create.php", array("action" => "add"));
 
-        $topRow = array();
-        $topRow[] = new tabobject(
-            "Buscar Apuntes",
-            new moodle_url("/local/diario_mural/view.php"),
-            "Avisos"
+        $top_row = [];
+        $top_row[] = new tabobject(
+            'avisos',
+            new moodle_url('/local/diario_mural/index.php'),
+            ' Avisos'
         );
-        $topRow[] = new tabobject(
-            "Mis Apuntes",
-            new moodle_url("/local/diario_mural/view.php"),
-            "Mis Avisos"
-        );
+        $top_row[] = new tabobject(
+            'mis_avisos',
+            new moodle_url('/local/diario_mural/usuario_avisos.php'),
+            'Mis avisos'
+        );*/
     }
 
     // Displays all the records, tabs, and options
-    if ($action == 'view'){
-
-        //var_dump('entró al custion');
-
-        echo $OUTPUT->tabtree($topRow, "Mis Avisos");
-
-        //var_dump('Pasó el echo');
-
-        if (sizeof($avisos) == 0){
-            echo html_writer::nonempty_tag("h4", "No has publicado avisos", array("align" => "center"));
-
-
-        }
-        else{
-            echo html_writer::table($tableMisAvisos);
-
-            var_dump('El usuario tiene avisos');
+    /*if ($action == 'view'){
+        echo $OUTPUT->tabtree($top_row, 'mis_avisos');
+        if (sizeof(getAllAvisos()) == 0){
+            echo html_writer::nonempty_tag('h3', 'No has creado avisos', array('align' => 'left'));
+        }else{
+            echo html_writer::table($avisos_table);
         }
 
-        echo html_writer::nonempty_tag("div", $OUTPUT->single_button($createButton, "Nuevo Aviso"), array("align" => "center"));
-
-    }
+        echo html_writer::nonempty_tag("div", $OUTPUT->single_button($url_button, "Publicar Aviso"), array("align" => "left"));
+    }*/
 
 echo $OUTPUT->footer();
 
