@@ -33,8 +33,7 @@ class create_form extends moodleform {
     public function definition() {
         global $CFG;
 
-        $mform = $this->_form; // Don't forget the underscore!
-
+        $mform = $this->_form;
 
         $tipos_aviso = $this->getTiposAviso();
         $dropDownAviso = [];

@@ -48,9 +48,22 @@ $PAGE->set_heading(get_string("heading", 'local_diario_mural'));
 
 echo $OUTPUT->header();
 
+if($action == 'edit'){
+
+}
+
+// Delete the selected record
+if ($action == "delete"){
+
+    if(!deleteRegister($id_aviso)){
+        print_error("Aviso no existe.");
+    }
+    $action = 'view';
+}
+
 //Lista de todos los registros de aviso
 if($action == 'view'){
-    retornaVistaMisavisos($OUTPUT);
+    retornaVistaMisAvisos($OUTPUT);
 }
    /* //Se obtienen los avisos del usuario
     $avisos = getAvisosUsuario($USER->id);
