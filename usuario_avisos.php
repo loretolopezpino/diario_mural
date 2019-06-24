@@ -49,7 +49,7 @@ $PAGE->set_heading(get_string("heading", 'local_diario_mural'));
 echo $OUTPUT->header();
 
 if($action == 'edit'){
-
+    retornaVistaMisAvisos($OUTPUT);
 }
 
 // Delete the selected record
@@ -65,54 +65,4 @@ if ($action == "delete"){
 if($action == 'view'){
     retornaVistaMisAvisos($OUTPUT);
 }
-   /* //Se obtienen los avisos del usuario
-    $avisos = getAvisosUsuario($USER->id);
-    $avisos_table = new html_table();
-
-    if(sizeof($avisos) > 0){
-
-        $avisos_table->head = [
-            'Título',
-            'Categoría'
-        ];
-
-        foreach($avisos as $aviso){
-            $avisos_table->data[] = array(
-                $aviso->titulo,
-                $aviso->categoria
-            );
-        }
-    }
-
-    $url_button = new moodle_url("/local/diario_mural/create.php", array("action" => "add"));
-
-    $top_row = [];
-    $top_row[] = new tabobject(
-        'avisos',
-        new moodle_url('/local/diario_mural/index.php'),
-        ' Avisos'
-    );
-    $top_row[] = new tabobject(
-        'mis_avisos',
-        new moodle_url('/local/diario_mural/create.php'),
-        'Mis avisos'
-    );
-
-
-}
-
-
-
-// Displays all the records, tabs, and options
-if ($action == 'view'){
-    echo $OUTPUT->tabtree($top_row, 'mis_avisos');
-    if (sizeof(getAllAvisos()) == 0){
-        echo html_writer::nonempty_tag('h3', 'No has creado avisos', array('align' => 'center'));
-    }else{
-        echo html_writer::table($avisos_table);
-    }
-
-    echo html_writer::nonempty_tag("div", $OUTPUT->single_button($url_button, "Publicar Aviso"), array("align" => "left"));
-
-}*/
 echo $OUTPUT->footer();

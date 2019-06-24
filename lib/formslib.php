@@ -122,7 +122,7 @@
                  *Botón ver
                  * */
                 $ver_url = new moodle_url('/local/diario_mural/view.php', [
-                    'action' => 'edit',
+                    'action' => 'view',
                     'id_aviso' =>  $aviso->id
 
                 ]);
@@ -169,15 +169,26 @@
 }
 
 
-function retornarVistaAviso($id_aviso){
+function retornarVistaAviso($id_aviso, $url){
+    $url= '/local/diario_mural/index.php';
 
     $aviso = findAviso($id_aviso);
-    $table = new html_table();
-    $table->head = array('titulo ','descripcion');
-
-    // Add the [] to data and just a single array.
-    $table->data[] = array($aviso->titulo, $aviso->descripcion);
-
-    // Outside the loop.
-    echo html_writer::table($table);
+    echo
+        '<table style="width:50%">
+          <tr>
+            <td><strong>Título</strong></td>
+            <td>'.$aviso->titulo.'</td>
+          </tr>
+          <tr>
+            <td><strong>Descripción</strong></td>
+            <td>'.$aviso->descripcion.'</td>
+          </tr>
+          <tr>
+            <td rowspan="2"><strong>Fecha Publicación</strong></td>
+            <td>'.$aviso->fecha_creacion.'</td>
+          </tr>
+        </table> 
+        <br>
+    
+        <a href='.new moodle_url($url).' class="btn btn-primary">ATRÁS</a>';
 }

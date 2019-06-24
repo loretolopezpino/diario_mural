@@ -68,8 +68,8 @@
                  *Botón ver
                  * */
                 $ver_url = new moodle_url('/local/diario_mural/view.php', [
-                    'action' => 'edit',
-                    'id_aviso' =>  $aviso->id
+                    'action' => 'view',
+                    'id_aviso' =>  $aviso->id,
 
                 ]);
                 $ver_ic = new pix_icon('t/hide', 'Ver');
