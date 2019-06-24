@@ -70,6 +70,7 @@
                 $ver_url = new moodle_url('/local/diario_mural/view.php', [
                     'action' => 'view',
                     'id_aviso' =>  $aviso->id,
+                    'url' =>  1,
 
                 ]);
                 $ver_ic = new pix_icon('t/hide', 'Ver');
@@ -101,8 +102,6 @@
 
 
     }
-
-
 
     // Displays all the records, tabs, and options
     if ($action == 'view'){

@@ -38,6 +38,7 @@ $PAGE->set_pagelayout("standard");
 // Possible actions -> view, add. Standard is view mode
 $action = optional_param("action", "view", PARAM_TEXT);
 $id_aviso = optional_param("id_aviso", null, PARAM_INT);
+$back_url = optional_param("url", null, PARAM_INT);
 
 require_login();
 if (isguestuser()){
@@ -48,6 +49,6 @@ $PAGE->set_heading(get_string("heading", 'local_diario_mural'));
 
 echo $OUTPUT->header();
 
-retornarVistaAviso($id_aviso, $url);
+retornarVistaAviso($id_aviso, $back_url);
 
 echo $OUTPUT->footer();

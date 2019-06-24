@@ -84,7 +84,7 @@
 
             $avisos_table->head = [
                 'Título',
-                'Categoría'
+                'Categoría',
             ];
 
             foreach($avisos as $aviso){
@@ -94,7 +94,7 @@
                  * */
                 $delete_url = new moodle_url('/local/diario_mural/usuario_avisos.php', [
                     'action' => 'delete',
-                    'id_aviso' =>  $aviso->id
+                    'id_aviso' =>  $aviso->id,
 
                 ]);
                 $delete_ic = new pix_icon('t/delete', 'Eliminar');
@@ -123,7 +123,8 @@
                  * */
                 $ver_url = new moodle_url('/local/diario_mural/view.php', [
                     'action' => 'view',
-                    'id_aviso' =>  $aviso->id
+                    'id_aviso' =>  $aviso->id,
+                    'url' => 2
 
                 ]);
                 $ver_ic = new pix_icon('t/hide', 'Ver');
@@ -170,7 +171,14 @@
 
 
 function retornarVistaAviso($id_aviso, $url){
-    $url= '/local/diario_mural/index.php';
+
+
+    if($url == 1){
+        $url= '/local/diario_mural/index.php';
+    }
+    else if($url == 2){
+        $url= '/local/diario_mural/usuario_avisos.php';
+    }
 
     $aviso = findAviso($id_aviso);
     echo

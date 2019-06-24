@@ -21,7 +21,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once ('forms/view_form.php');
 require_once ('lib/formslib.php');
 require(__DIR__.'/../../config.php');
 
@@ -38,6 +37,7 @@ $PAGE->set_pagelayout("standard");
 // Possible actions -> view, add. Standard is view mode
 $action = optional_param("action", "view", PARAM_TEXT);
 $id_aviso = optional_param("id_aviso", null, PARAM_INT);
+$back_url = optional_param("url", null, PARAM_INT);
 
 require_login();
 if (isguestuser()){
