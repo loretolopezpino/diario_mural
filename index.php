@@ -107,7 +107,7 @@
     if ($action == 'view'){
         echo $OUTPUT->tabtree($top_row, 'avisos');
         if (sizeof(getAllAvisos()) == 0){
-            echo html_writer::nonempty_tag('h3', 'No has creado avisos', array('align' => 'center'));
+            echo html_writer::nonempty_tag('h4', 'No hay avisos publicados.', array('align' => 'left'));
         }else{
             echo html_writer::table($avisos_table);
         }

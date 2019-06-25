@@ -159,7 +159,7 @@
         // Displays all the records, tabs, and options
         echo $OUTPUT->tabtree($top_row, 'mis_avisos');
         if (sizeof(getAllAvisos()) == 0){
-            echo html_writer::nonempty_tag('h3', 'No has creado avisos', array('align' => 'left'));
+            echo html_writer::nonempty_tag('h4', 'No has publicado avisos', array('align' => 'left'));
         }
         else{
             echo html_writer::table($avisos_table);
